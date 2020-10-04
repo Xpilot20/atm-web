@@ -12,6 +12,7 @@ import th.ac.ku.atm.service.BankAccountService;
 @Controller
 @RequestMapping("/bankaccount")
 public class BankAccountController {
+
     private BankAccountService bankAccountService;
 
     public BankAccountController(BankAccountService bankAccountService) {
@@ -20,13 +21,14 @@ public class BankAccountController {
 
     @GetMapping
     public String getBankAccountPage(Model model) {
-        model.addAttribute("allBankAccounts",bankAccountService.getBankAccounts());
-        return "bankaccount.html";
+        model.addAttribute("bankaccounts", bankAccountService.getBankAccounts());
+        return "bankaccount";
     }
+
     @PostMapping
-    public String registerBankAccount(@ModelAttribute BankAccount bankAccount, Model model) {
-        bankAccountService.createBankAccount(bankAccount);
-        model.addAttribute("allBankAccounts",bankAccountService.getBankAccounts());
+    public String openAccount(@ModelAttribute BankAccount bankAccount, Model model) {
+        bankAccountService.openBankAccount(bankAccount);
+        model.addAttribute("bankaccounts",bankAccountService.getBankAccounts());
         return "redirect:bankaccount";
     }
 }
